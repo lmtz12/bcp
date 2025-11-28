@@ -37,7 +37,7 @@ export default async function handler(req, res) {
             body: JSON.stringify({
                 chat_id: chatId,
                 text: message,
-                parse_mode: 'Markdown', // Enable Markdown formatting
+                parse_mode: 'HTML', // Enable HTML formatting for better structure
             }),
         });
 

