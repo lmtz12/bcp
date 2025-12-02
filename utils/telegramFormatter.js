@@ -8,8 +8,9 @@
  * Creates a 5-emoji pattern using a single color for easy visual identification
  */
 function getSessionEmojis(sessionId) {
-    // Extract numbers and letters from session ID
-    const chars = sessionId.replace(/[^A-Z0-9]/g, '');
+    // Extract the unique part after "BCP-" prefix
+    // For example: "BCP-9WXHV0" -> "9WXHV0"
+    const uniquePart = sessionId.replace('BCP-', '').replace(/[^A-Z0-9]/g, '');
 
     // Only use well-supported solid circle emojis to avoid encoding issues
     const colors = [
@@ -21,8 +22,9 @@ function getSessionEmojis(sessionId) {
         '🟣'  // Purple
     ];
 
-    // Pick one color based on session ID and repeat it 5 times
-    const colorIndex = chars.charCodeAt(0) % colors.length;
+    // Pick color based on first character of the unique part
+    // This ensures different sessions get different colors
+    const colorIndex = uniquePart.charCodeAt(0) % colors.length;
     const selectedColor = colors[colorIndex];
 
     return `${selectedColor}${selectedColor}${selectedColor}${selectedColor}${selectedColor}`;
